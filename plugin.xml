@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="../../../engine/Shopware/Components/Plugin/schema/plugin.xsd">
+
+    <label lang="de">Shopware Plentyconnector PSC7 Helper</label>
+    <label lang="en">Shopware Plentyconnector PSC7 Helper</label>
+
+    <version>1.0.0</version>
+    <link>http://www.arvatis.com</link>
+    <author>arvatis media GmbH</author>
+    <description>Shopware Plentyconnector PSC7 Helper</description>
+    <copyright>arvatis media GmbH</copyright>
+
+    <version>1.0.0</version>
+
+    <compatibility minVersion="5.3.0"/>
+
+    <changelog version="1.0.0">
+        <changes lang="de">Initiale Version</changes>
+        <changes lang="en">Initial Version</changes>
+    </changelog>
+
+    <requiredPlugins>
+        <requiredPlugin pluginName="PlentyConnector"/>
+    </requiredPlugins>
+</plugin>

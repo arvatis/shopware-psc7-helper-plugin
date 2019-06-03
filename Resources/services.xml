@@ -1,0 +1,70 @@
+<container xmlns="http://symfony.com/schema/dic/services"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services
+        https://symfony.com/schema/dic/services/services-1.0.xsd">
+    <parameters>
+        <parameter key="psc7_helper_backend_template_dir">%psc7_helper.plugin_dir%/Resources/views</parameter>
+    </parameters>
+
+    <services>
+
+        <service id="psc7_helper.services.commands_collection_service"
+                 class="PSC7Helper\Services\CommandsCollectionService">
+            <argument>cleanup</argument>
+            <argument>mapping</argument>
+            <argument>backlog:info</argument>
+            <argument>backlog:process</argument>
+            <argument>process:product</argument>
+            <argument>process:order</argument>
+            <argument>process:stock</argument>
+            <argument>process:category</argument>
+            <argument>process:manufacturer</argument>
+            <argument>sw:cron:run</argument>
+            <argument>sw:cron:list</argument>
+            <argument>sw:cache:clear</argument>
+            <argument>sw:media:cleanup</argument>
+            <argument>sw:rebuild:seo:index</argument>
+            <argument>sw:rebuild:search:index</argument>
+            <argument>sw:theme:cache:generate</argument>
+        </service>
+
+        <service id="psc7_helper.services.command_generator_service"
+                 class="PSC7Helper\Services\CommandGeneratorService">
+            <argument type="service" id="psc7_helper.services.commands_collection_service" />
+        </service>
+
+        <service id="psc7_helper.services.command_executer_service"
+                 class="PSC7Helper\Services\CommandExecuterService">
+            <argument type="service" id="psc7_helper.services.command_generator_service" />
+        </service>
+
+        <service id="psc7_helper.services.connector_backlog_service"
+                 class="PSC7Helper\Services\ConnectorBacklogService">
+            <argument type="service" id="plenty_connector.backlog_service" />
+        </service>
+
+        <service id="psc7_helper.services.connector_identity.service"
+                 class="PSC7Helper\Services\ConnectorIdentityService">
+            <argument type="service" id="dbal_connection" />
+        </service>
+
+        <service id="psc7_helper.services.cronjob_service"
+                 class="PSC7Helper\Services\CronjobService">
+            <argument type="service" id="dbal_connection" />
+        </service>
+
+        <service id="psc7_helper.services.article_service"
+                 class="PSC7Helper\Services\ArticleService">
+            <argument type="service" id="dbal_connection" />
+            <argument type="service" id="psc7_helper.services.connector_identity.service" />
+            <argument type="service" id="psc7_helper.services.command_generator_service" />
+        </service>
+
+        <service id="psc7_helper.subscriber.backend_template_registration_subscriber"
+                class="PSC7Helper\Subscriber\BackendTemplateRegistrationSubscriber">
+            <argument>%psc7_helper_backend_template_dir%</argument>
+            <tag name="shopware.event_subscriber"/>
+        </service>
+
+    </services>
+</container>
