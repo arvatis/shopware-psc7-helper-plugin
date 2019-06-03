@@ -1,0 +1,1 @@
+# shopware-psc7-helper-plugin
