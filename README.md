@@ -1,6 +1,7 @@
 # shopware-psc7-helper-plugin
 
 * **License:** MIT
+* **Credits:** Michael Rusch, Florian Wehrhausen, Waldemar Fraer, arvatis media GmbH
 
 ## Requirements
 
