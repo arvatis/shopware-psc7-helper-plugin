@@ -4,8 +4,8 @@
     <entries>
         <entry>
             <name>PSC7Helper</name>
-            <label lang="en">PSC7Helper</label>
-            <label lang="de">PSC7Helper</label>
+            <label lang="en">PlentyConnector Helper</label>
+            <label lang="de">PlentyConnector Helper</label>
             <controller>PSC7HelperDashboard</controller>
             <action>index</action>
             <class>sprite-metronome</class>
