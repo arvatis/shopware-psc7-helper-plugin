@@ -6,6 +6,7 @@ use PSC7Helper\Services\ConnectorBacklogServiceInterface;
 use PSC7Helper\Services\ConnectorIdentityServiceInterface;
 use PSC7Helper\Services\CronjobServiceInterface;
 use Shopware\Components\CSRFWhitelistAware;
+use SystemConnector\ConfigService\ConfigServiceInterface;
 
 class Shopware_Controllers_Backend_PSC7HelperConnector extends Enlight_Controller_Action implements CSRFWhitelistAware
 {
@@ -18,6 +19,11 @@ class Shopware_Controllers_Backend_PSC7HelperConnector extends Enlight_Controlle
      * @var ConnectorBacklogServiceInterface
      */
     private $backlogService;
+
+    /**
+     * @var ConfigServiceInterface
+     */
+    private $configService;
 
     /**
      * @var CronjobServiceInterface
@@ -38,9 +44,27 @@ class Shopware_Controllers_Backend_PSC7HelperConnector extends Enlight_Controlle
     {
         $this->identityService = $this->container->get('psc7_helper.services.connector_identity.service');
         $this->backlogService = $this->container->get('psc7_helper.services.connector_backlog_service');
+        $this->configService = $this->container->get('plenty_connector.config_service');
         $this->cronjobService = $this->container->get('psc7_helper.services.cronjob_service');
         $this->commandGeneratorService = $this->container->get('psc7_helper.services.command_generator_service');
         $this->commandsCollectionService = $this->container->get('psc7_helper.services.commands_collection_service');
+    }
+
+    public function settingsAction()
+    {
+        $this->View()->loadTemplate('backend/connector/settings.tpl');
+
+        $productDefaultNameOptions = [
+            1 => 'Name1',
+            2 => 'Name2',
+            3 => 'Name3'
+        ];
+        $currentProductDefaultNameOption = $this->configService->get('helper.product_default_name_option');
+        $currentProductDefaultNameOptionFallback = $this->configService->get('helper.product_default_name_option_fallback');
+
+        $this->View()->assign('productDefaultNameOptions', $productDefaultNameOptions);
+        $this->View()->assign('currentProductDefaultNameOption', $currentProductDefaultNameOption);
+        $this->View()->assign('currentProductDefaultNameOptionFallback', $currentProductDefaultNameOptionFallback);
     }
 
     public function commandsAction()
@@ -95,12 +119,34 @@ class Shopware_Controllers_Backend_PSC7HelperConnector extends Enlight_Controlle
         $this->View()->assign('identitySearchColumns', $identitySearchColumns);
     }
 
+    public function saveSettingsAction()
+    {
+        $productDefaultNameOption = (int)$this->Request()->getParam(
+            'productDefaultNameOption',
+            $this->configService->get('helper.product_default_name_option', 1)
+        );
+        $productDefaultNameOptionFallback = (int)$this->Request()->getParam(
+            'productDefaultNameOptionFallback',
+            $this->configService->get('helper.product_default_name_option_fallback', 1)
+        );
+
+        $this->configService->set('helper.product_default_name_option', $productDefaultNameOption);
+        $this->configService->set('helper.product_default_name_option_fallback', $productDefaultNameOptionFallback);
+
+        return $this->redirect([
+            'controller' => 'PSC7HelperConnector',
+            'action' => 'settings'
+        ]);
+    }
+
     public function getWhitelistedCSRFActions()
     {
         return [
+            'settings',
             'commands',
             'search',
-            'identitys'
+            'identitys',
+            'saveSettings'
         ];
     }
 }

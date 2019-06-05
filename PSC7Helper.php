@@ -3,6 +3,7 @@
 namespace PSC7Helper;
 
 use Shopware\Components\Plugin;
+use Shopware\Components\Plugin\Context\InstallContext;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class PSC7Helper extends Plugin
@@ -15,5 +16,16 @@ class PSC7Helper extends Plugin
         $container->setParameter('psc7_helper.plugin_dir', $this->getPath());
 
         parent::build($container);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function install(InstallContext $context)
+    {
+        $configService = $this->container->get('plenty_connector.config_service');
+
+        $configService->set('helper.product_default_name_option', 1);
+        $configService->set('helper.product_default_name_option_fallback', 1);
     }
 }
