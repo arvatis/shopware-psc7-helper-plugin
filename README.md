@@ -13,3 +13,10 @@
 * cronjobs
 * active plentymarkets webshop
 * plentymarkets user with all rest permissions
+
+## Installation
+
+Clone the repository to custom/plugins
+* git clone https://github.com/arvatis/shopware-psc7-helper-plugin.git PSC7Helper 
+* Activate the plugin from plugin manager
+* Settings -> PlentyConnector Helper will open new window 
