@@ -30,38 +30,46 @@
 
         <service id="psc7_helper.services.command_generator_service"
                  class="PSC7Helper\Services\CommandGeneratorService">
-            <argument type="service" id="psc7_helper.services.commands_collection_service" />
+            <argument type="service" id="psc7_helper.services.commands_collection_service"/>
         </service>
 
         <service id="psc7_helper.services.command_executer_service"
                  class="PSC7Helper\Services\CommandExecuterService">
-            <argument type="service" id="psc7_helper.services.command_generator_service" />
+            <argument type="service" id="psc7_helper.services.command_generator_service"/>
         </service>
 
         <service id="psc7_helper.services.connector_backlog_service"
                  class="PSC7Helper\Services\ConnectorBacklogService">
-            <argument type="service" id="plenty_connector.backlog_service" />
+            <argument type="service" id="plenty_connector.backlog_service"/>
         </service>
 
         <service id="psc7_helper.services.connector_identity.service"
                  class="PSC7Helper\Services\ConnectorIdentityService">
-            <argument type="service" id="dbal_connection" />
+            <argument type="service" id="dbal_connection"/>
         </service>
 
         <service id="psc7_helper.services.cronjob_service"
                  class="PSC7Helper\Services\CronjobService">
-            <argument type="service" id="dbal_connection" />
+            <argument type="service" id="dbal_connection"/>
         </service>
 
         <service id="psc7_helper.services.article_service"
                  class="PSC7Helper\Services\ArticleService">
-            <argument type="service" id="dbal_connection" />
-            <argument type="service" id="psc7_helper.services.connector_identity.service" />
-            <argument type="service" id="psc7_helper.services.command_generator_service" />
+            <argument type="service" id="dbal_connection"/>
+            <argument type="service" id="psc7_helper.services.connector_identity.service"/>
+            <argument type="service" id="psc7_helper.services.command_generator_service"/>
+        </service>
+
+        <service id="psc7_helper.components.decorated_product_response_parser"
+                 class="PSC7Helper\Components\DecoratedProductResponseParser"
+                 decorates="plentymarkets_adapter.response_parser.product"
+                 public="false">
+            <argument type="service" id="psc7_helper.components.decorated_product_response_parser.inner"/>
+            <argument type="service" id="plenty_connector.config_service" />
         </service>
 
         <service id="psc7_helper.subscriber.backend_template_registration_subscriber"
-                class="PSC7Helper\Subscriber\BackendTemplateRegistrationSubscriber">
+                 class="PSC7Helper\Subscriber\BackendTemplateRegistrationSubscriber">
             <argument>%psc7_helper_backend_template_dir%</argument>
             <tag name="shopware.event_subscriber"/>
         </service>

@@ -32,6 +32,10 @@
                             </strong>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{url controller=PSC7HelperConnector action=settings}"
+                               title="Connector Einstellungen">
+                                Connector Einstellungen
+                            </a>
                             <a class="dropdown-item" href="{url controller=PSC7HelperConnector action=commands}"
                                title="Connector-Befehle">
                                 Connector-Befehle
