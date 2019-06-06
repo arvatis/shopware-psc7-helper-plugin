@@ -32,7 +32,7 @@ class DecoratedProductResponseParser implements ProductResponseParserInterface
     /**
      * {@inheritdoc}
      */
-    public function parse(array $product)
+    public function parse(array $product): array
     {
         $productDefaultNameOption = (int)$this->configService->get('helper.product_default_name_option');
         $productDefaultNameOptionFallback = (int)$this->configService->get('helper.product_default_name_option_fallback');

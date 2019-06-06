@@ -7,6 +7,7 @@
 
 * plentymarkets version >= 7.2
 * shopware version >= 5.5
+* connector version >= 5.2
 * php >= 7.2
 * plentyconnector installed
 * shell access
