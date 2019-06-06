@@ -13,7 +13,7 @@
 
     <version>1.0.0</version>
 
-    <compatibility minVersion="5.3.0"/>
+    <compatibility minVersion="5.5.0"/>
 
     <changelog version="1.0.0">
         <changes lang="de">Initiale Version</changes>
@@ -21,6 +21,6 @@
     </changelog>
 
     <requiredPlugins>
-        <requiredPlugin pluginName="PlentyConnector"/>
+        <requiredPlugin pluginName="PlentyConnector" minVersion="5.2.0"/>
     </requiredPlugins>
 </plugin>
