@@ -88,7 +88,7 @@
                             </strong>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{url controller=PSC7HelperConnector action=commands}"
+                            <a class="dropdown-item" href="{url controller=PSC7HelperTools action=orderSync}"
                                title="Bestellungen abgleichen">
                                 Bestellungen abgleichen
                             </a>

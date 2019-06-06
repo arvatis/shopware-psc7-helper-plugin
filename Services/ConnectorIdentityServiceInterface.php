@@ -19,6 +19,15 @@ interface ConnectorIdentityServiceInterface
     public function getIdentityByAdapterIdentifierAndAdapterNameAndObjectType(string $adapterIdentifier, string $adapterName, string $objectType);
 
     /**
+     * @param string $objectIdentifier
+     * @param string $adapterName
+     * @param string $objectType
+     *
+     * @return object
+     */
+    public function getIdentityByObjectIdentifierAndAdapterNameAndObjectType(string $objectIdentifier, string $adapterName, string $objectType);
+
+    /**
      * @param string $objectType
      *
      * @return int

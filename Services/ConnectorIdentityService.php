@@ -58,6 +58,29 @@ class ConnectorIdentityService implements ConnectorIdentityServiceInterface
     /**
      * {@inheritDoc}
      */
+    public function getIdentityByObjectIdentifierAndAdapterNameAndObjectType(string $objectIdentifier, string $adapterName, string $objectType)
+    {
+        $identity = $this->connection->createQueryBuilder()
+            ->select('id')
+            ->addSelect('objectIdentifier')
+            ->addSelect('objectType')
+            ->addSelect('adapterIdentifier')
+            ->addSelect('adapterName')
+            ->from('plenty_identity', 'i')
+            ->where('i.objectIdentifier = :objectIdentifier')
+            ->andWhere('i.adapterName = :adapterName')
+            ->andWhere('i.objectType = :objectType')
+            ->setParameter('objectIdentifier', $objectIdentifier)
+            ->setParameter('adapterName', $adapterName)
+            ->setParameter('objectType', $objectType)
+            ->execute();
+
+        return $identity->fetch(\PDO::FETCH_OBJ);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getIdentitiesCountByObjectType(string $objectType): int
     {
         $identities = $this->connection->createQueryBuilder()

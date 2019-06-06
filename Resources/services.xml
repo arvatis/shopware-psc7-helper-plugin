@@ -60,12 +60,19 @@
             <argument type="service" id="psc7_helper.services.command_generator_service"/>
         </service>
 
+        <service id="psc7_helper.services.order_service"
+                 class="PSC7Helper\Services\OrderService">
+            <argument type="service" id="dbal_connection"/>
+            <argument type="service" id="psc7_helper.services.connector_identity.service"/>
+            <argument type="service" id="psc7_helper.services.command_generator_service"/>
+        </service>
+
         <service id="psc7_helper.components.decorated_product_response_parser"
                  class="PSC7Helper\Components\DecoratedProductResponseParser"
                  decorates="plentymarkets_adapter.response_parser.product"
                  public="false">
             <argument type="service" id="psc7_helper.components.decorated_product_response_parser.inner"/>
-            <argument type="service" id="plenty_connector.config_service" />
+            <argument type="service" id="plenty_connector.config_service"/>
         </service>
 
         <service id="psc7_helper.subscriber.backend_template_registration_subscriber"

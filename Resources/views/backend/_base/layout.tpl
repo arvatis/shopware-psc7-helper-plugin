@@ -24,7 +24,6 @@
         {block name="content/main"}{/block}
     </div>
 </main>
-<hr class="hr-befor-footer">
 {include file="backend/_base/footer.tpl"}
 <script src="{link file="backend/_resources/components/jquery/jquery.min.js"}"></script>
 <script src="{link file="backend/_resources/components/bootstrap/dist/js/bootstrap.bundle.min.js"}"></script>

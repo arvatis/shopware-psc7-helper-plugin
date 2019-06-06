@@ -17,9 +17,11 @@ class CommandGeneratorService implements CommandGeneratorServiceInterface
     /**
      * {@inheritDoc}
      */
-    public function generateCommand(string $name, ?string $objectIdentifier = null): string
+    public function generateCommand(string $name, ?string $objectIdentifier = null, array $options = []): string
     {
         $command = $this->commandsCollectionService->getCommand($name);
+        $command['options'] = array_merge($command['options'], $options);
+
         $options = '';
         $prefix = 'plentyconnector:';
 
@@ -52,7 +54,7 @@ class CommandGeneratorService implements CommandGeneratorServiceInterface
 
     private function getPhpPath(): ?string
     {
-        exec('which php', $phpPathOutput);
+        exec(sprintf('which php%d.%d', PHP_MAJOR_VERSION, PHP_MINOR_VERSION), $phpPathOutput);
 
         return array_shift($phpPathOutput) ?? null;
     }
