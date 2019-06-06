@@ -57,13 +57,17 @@ class OrderService implements OrderServiceInterface
 
         $orders = [];
         foreach ($ordersQuery->fetchAll(\PDO::FETCH_OBJ) as $key => $order) {
-            $orders[$key] = $order;
-
             $orderIdentifier = $this->connectorIdentityService->getIdentityByAdapterIdentifierAndAdapterNameAndObjectType(
                 $order->id,
                 ShopwareAdapter::NAME,
                 Order::TYPE
             );
+
+            if ($orderIdentifier->objectIdentifier === null) {
+                continue;
+            }
+
+            $orders[$key] = $order;
             $orders[$key]->isMapped = $orderIdentifier->objectIdentifier !== null;
             $orders[$key]->objectIdentifier = $orderIdentifier->objectIdentifier;
 
@@ -76,14 +80,13 @@ class OrderService implements OrderServiceInterface
             $orders[$key]->isPlentyMapped = $orderPlentyIdentifier->objectIdentifier !== null;
             $orders[$key]->adapterPlentyIdentifier = $orderPlentyIdentifier->adapterIdentifier;
 
-            $generatedCommand = $this->commandGeneratorService->generateCommand(
+            $orders[$key]->generatedCommand = $this->commandGeneratorService->generateCommand(
                 Order::TYPE,
                 $orderIdentifier->objectIdentifier,
                 [
                     'backlog' => false
                 ]
             );
-            $orders[$key]->generatedCommand = $generatedCommand;
         }
 
         return $orders;
