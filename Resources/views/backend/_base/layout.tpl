@@ -11,6 +11,7 @@
     <link rel="apple-touch-icon" href="{link file="backend/_resources/images/apple-touch-icon.png"}">
     <link rel="stylesheet" href="{link file="backend/_resources/components/bootstrap/dist/css/bootstrap.min.css"}">
     <link rel="stylesheet" href="{link file="backend/_resources/components/font-awesome/css/fontawesome-all.min.css"}">
+    <link rel="stylesheet" href="{link file="backend/_resources/components/range-slider/css/rangeslider.min.css"}">
     <link rel="stylesheet" href="{link file="backend/_resources/css/styles-main.css"}">
     <link rel="stylesheet" href="{link file="backend/_resources/css/styles-print.css"}">
     <link rel="stylesheet" href="{link file="backend/_resources/css/styles-responsive.css"}">
@@ -27,6 +28,7 @@
 {include file="backend/_base/footer.tpl"}
 <script src="{link file="backend/_resources/components/jquery/jquery.min.js"}"></script>
 <script src="{link file="backend/_resources/components/bootstrap/dist/js/bootstrap.bundle.min.js"}"></script>
+<script src="{link file="backend/_resources/components/range-slider/js/rangeslider.min.js"}"></script>
 <script src="{link file="backend/_resources/js/dataTables.js"}"></script>
 <script src="{link file="backend/_resources/js/helper.js"}"></script>
 {block name="content/javascript"}{/block}

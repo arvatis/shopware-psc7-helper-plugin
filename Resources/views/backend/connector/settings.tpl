@@ -5,14 +5,14 @@
         <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header">
-                    <h5>Settings</h5>
+                    <h5>Einstellungen</h5>
                 </div>
                 <div class="card-body">
                     <form action="{url controller=PSC7HelperConnector action=saveSettings}" method="post">
                         <div class="form-row">
                             <div class="col-12">
                                 <div class="form-group mb-4">
-                                    <label for="productDefaultNameOption">Standard Produkt Name</label>
+                                    <label for="productDefaultNameOption">Produkt Name</label>
                                     <select class="form-control" id="productDefaultNameOption" name="productDefaultNameOption">
                                         {if $productDefaultNameOptions}
                                             {foreach $productDefaultNameOptions as $key => $productDefaultNameOption}
@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-12">
                                 <div class="form-group mb-4">
-                                    <label for="productDefaultNameOptionFallback">Standard Produkt Name Fallback</label>
+                                    <label for="productDefaultNameOptionFallback">Produkt Name Fallback</label>
                                     <select class="form-control" id="productDefaultNameOptionFallback" name="productDefaultNameOptionFallback">
                                         {if $productDefaultNameOptions}
                                             {foreach $productDefaultNameOptions as $key => $productDefaultNameOption}
@@ -42,6 +42,18 @@
                                         {/if}
                                     </select>
                                     <small id="productDefaultNameOptionFallbackHelp" class="form-text text-muted">Auswahl Welcher Produkt Name für die Übertragung genutzt werden soll wenn das ausgewählte Feld nicht befüllt ist.</small>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-4">
+                                    <input type="hidden" name="stockBufferOption" value="{$currentStockBufferOption}">
+                                    <label for="stockBufferOption">Stock Buffer</label>
+                                    <div class="rangeslider-wrap">
+                                        <input type="range" id="stockBufferOption" class="stockBufferOptionRange" value="{$currentStockBufferOption}">
+                                    </div>
+                                    <br />
+                                    <p class="form-text text-center stockBufferOptionText">{$currentStockBufferOption}</p>
+                                    <small id="stockBufferOptionHelp" class="form-text text-muted">Auswahl Welcher Warenbestandspuffer für die Übertragung genutzt werden soll.</small>
                                 </div>
                             </div>
                         </div>

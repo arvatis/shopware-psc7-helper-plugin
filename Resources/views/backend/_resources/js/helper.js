@@ -33,6 +33,7 @@
 
             self.handleDataTables();
             self.handleTooltips();
+            self.handleRangeSliders();
         },
 
         handleCommandOutput: function ($commandButton) {
@@ -90,6 +91,27 @@
 
         handleTooltips: function () {
             $('[data-toggle="tooltip"]').tooltip();
+        },
+
+        handleRangeSliders: function () {
+            var $stockBufferInputRange = $('input.stockBufferOptionRange'),
+                $stockBufferOption = $('input[name="stockBufferOption"]'),
+                $stockBufferOptionText = $('p.stockBufferOptionText');
+
+            $stockBufferInputRange.rangeslider({
+                polyfill: false,
+                rangeClass: 'rangeslider',
+                disabledClass: 'rangeslider--disabled',
+                horizontalClass: 'rangeslider--horizontal',
+                verticalClass: 'rangeslider--vertical',
+                fillClass: 'rangeslider__fill',
+                handleClass: 'rangeslider__handle',
+
+                onSlide: function (position, value) {
+                    $stockBufferOption.val(value);
+                    $stockBufferOptionText.text(value);
+                }
+            });
         },
 
         handleDataTables: function () {

@@ -75,6 +75,14 @@
             <argument type="service" id="plenty_connector.config_service"/>
         </service>
 
+        <service id="psc7_helper.components.decorated_stock_response_parser"
+                 class="PSC7Helper\Components\DecoratedStockResponseParser"
+                 decorates="plentymarkets_adapter.response_parser.stock"
+                 public="false">
+            <argument type="service" id="psc7_helper.components.decorated_stock_response_parser.inner"/>
+            <argument type="service" id="plenty_connector.config_service"/>
+        </service>
+
         <service id="psc7_helper.subscriber.backend_template_registration_subscriber"
                  class="PSC7Helper\Subscriber\BackendTemplateRegistrationSubscriber">
             <argument>%psc7_helper_backend_template_dir%</argument>

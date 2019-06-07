@@ -368,7 +368,10 @@ nav li {
     font-size: .8rem;
     margin-bottom: 0;
     max-height: 420px;
-    
+}
+
+.rangeslider__fill {
+    background: #0aa1d9;
 }
 
 .btn-loading {

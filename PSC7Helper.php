@@ -27,5 +27,6 @@ class PSC7Helper extends Plugin
 
         $configService->set('helper.product_default_name_option', 1);
         $configService->set('helper.product_default_name_option_fallback', 1);
+        $configService->set('helper.stock.stock_buffer_option', 0);
     }
 }

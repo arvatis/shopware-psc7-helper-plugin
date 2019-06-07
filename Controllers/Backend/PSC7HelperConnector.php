@@ -59,12 +59,14 @@ class Shopware_Controllers_Backend_PSC7HelperConnector extends Enlight_Controlle
             2 => 'Name2',
             3 => 'Name3'
         ];
-        $currentProductDefaultNameOption = $this->configService->get('helper.product_default_name_option');
-        $currentProductDefaultNameOptionFallback = $this->configService->get('helper.product_default_name_option_fallback');
+        $currentProductDefaultNameOption = (int)$this->configService->get('helper.product_default_name_option');
+        $currentProductDefaultNameOptionFallback = (int)$this->configService->get('helper.product_default_name_option_fallback');
+        $currentStockBufferOption = (int)$this->configService->get('helper.stock.stock_buffer_option');
 
         $this->View()->assign('productDefaultNameOptions', $productDefaultNameOptions);
         $this->View()->assign('currentProductDefaultNameOption', $currentProductDefaultNameOption);
         $this->View()->assign('currentProductDefaultNameOptionFallback', $currentProductDefaultNameOptionFallback);
+        $this->View()->assign('currentStockBufferOption', $currentStockBufferOption);
     }
 
     public function commandsAction()
@@ -129,9 +131,14 @@ class Shopware_Controllers_Backend_PSC7HelperConnector extends Enlight_Controlle
             'productDefaultNameOptionFallback',
             $this->configService->get('helper.product_default_name_option_fallback', 1)
         );
+        $stockBufferOption = (int)$this->Request()->getParam(
+            'stockBufferOption',
+            $this->configService->get('helper.stock.stock_buffer_option', 0)
+        );
 
         $this->configService->set('helper.product_default_name_option', $productDefaultNameOption);
         $this->configService->set('helper.product_default_name_option_fallback', $productDefaultNameOptionFallback);
+        $this->configService->set('helper.stock.stock_buffer_option', $stockBufferOption);
 
         return $this->redirect([
             'controller' => 'PSC7HelperConnector',
