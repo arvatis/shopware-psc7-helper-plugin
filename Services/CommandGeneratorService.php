@@ -33,7 +33,7 @@ class CommandGeneratorService implements CommandGeneratorServiceInterface
             $command['command'] = 'process ' . $command['name'];
 
             if ($objectIdentifier !== null) {
-                $command['command'] .= ' '. $objectIdentifier;
+                $command['command'] .= ' ' . $objectIdentifier;
             }
 
             if ($command['options']['all']) {
@@ -52,10 +52,18 @@ class CommandGeneratorService implements CommandGeneratorServiceInterface
         return trim(sprintf('%s bin/console %s%s %s', $this->getPhpPath(), $prefix, $command['command'], trim($options)));
     }
 
-    private function getPhpPath(): ?string
+    private function getPhpPath(): string
     {
-        exec(sprintf('which php%d.%d', PHP_MAJOR_VERSION, PHP_MINOR_VERSION), $phpPathOutput);
+        exec($phpExecCommand = sprintf('which php%d.%d', PHP_MAJOR_VERSION, PHP_MINOR_VERSION), $phpPathOutput);
+        if (!$phpCliPath = array_shift($phpPathOutput)) {
+            throw new \RuntimeException(
+                sprintf(
+                    'Unable to locate PHP CLI path tried to run command: %s please contact your hosting provider.',
+                    $phpExecCommand
+                )
+            );
+        }
 
-        return array_shift($phpPathOutput) ?? null;
+        return $phpCliPath;
     }
 }

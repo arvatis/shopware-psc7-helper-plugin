@@ -23,12 +23,21 @@ class Shopware_Controllers_Backend_PSC7HelperCommand extends Enlight_Controller_
             return;
         }
 
-        $executedCommand = $this->commandExecutorService->executeCommand($commandName, $this->Request()->getParam('objectIdentifier'));
-
         $response = [
-            'success' => true,
-            'data' => $executedCommand
+            'success' => false,
+            'message' => null,
+            'data' => null,
         ];
+
+        try {
+            $response['success'] = true;
+            $response['data'] = $this->commandExecutorService->executeCommand($commandName, $this->Request()->getParam('objectIdentifier'));
+        } catch (\RuntimeException $e) {
+            $this->Response()->setHttpResponseCode(500);
+
+            $response['success'] = false;
+            $response['message'] = $e->getMessage();
+        }
 
         $this->setJsonResponse($response);
     }

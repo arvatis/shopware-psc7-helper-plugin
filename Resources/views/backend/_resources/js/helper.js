@@ -49,6 +49,10 @@
                 data: {
                     command: $commandButton.attr('data-command-name')
                 }
+            }).fail(function (response) {
+                var responseJson = response.responseJSON;
+
+                $consoleOutput.text(responseJson.message);
             }).done(function (response) {
                 $consoleOutput.html(response.data.join("\n"));
             });
@@ -69,6 +73,10 @@
                     command: $commandForm.find('#type').val(),
                     objectIdentifier: $commandForm.find('#product').val()
                 }
+            }).fail(function (response) {
+                var responseJson = response.responseJSON;
+
+                $consoleOutput.text(responseJson.message);
             }).done(function (response) {
                 $consoleOutput.html(response.data.join("\n"));
             });
