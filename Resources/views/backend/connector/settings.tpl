@@ -12,6 +12,13 @@
                         <div class="form-row">
                             <div class="col-12">
                                 <div class="form-group mb-4">
+                                    <label for="phpCliPathOption">PHP CLI Path</label>
+                                    <input type="text" name="phpCliPathOption" id="phpCliPathOption" class="form-control" placeholder="/usr/bin/php" value="{$currentPhpCliPathOption}">
+                                    <small id="phpCliPathOption" class="form-text text-muted">Falls sie einen anderen PHP Cli Path haben wegen ihrem Hoster können sie den Path hier eintragen.</small>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-4">
                                     <label for="productDefaultNameOption">Produkt Name</label>
                                     <select class="form-control" id="productDefaultNameOption" name="productDefaultNameOption">
                                         {if $productDefaultNameOptions}

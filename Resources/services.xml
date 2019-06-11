@@ -31,6 +31,7 @@
         <service id="psc7_helper.services.command_generator_service"
                  class="PSC7Helper\Services\CommandGeneratorService">
             <argument type="service" id="psc7_helper.services.commands_collection_service"/>
+            <argument type="service" id="plenty_connector.config_service"/>
         </service>
 
         <service id="psc7_helper.services.command_executer_service"

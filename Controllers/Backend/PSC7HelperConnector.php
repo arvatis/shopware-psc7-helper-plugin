@@ -59,11 +59,13 @@ class Shopware_Controllers_Backend_PSC7HelperConnector extends Enlight_Controlle
             2 => 'Name2',
             3 => 'Name3'
         ];
+        $currentPhpCliPathOption = $this->configService->get('helper.php_cli_path_option', '');
         $currentProductDefaultNameOption = (int)$this->configService->get('helper.product_default_name_option');
         $currentProductDefaultNameOptionFallback = (int)$this->configService->get('helper.product_default_name_option_fallback');
         $currentStockBufferOption = (int)$this->configService->get('helper.stock.stock_buffer_option');
 
         $this->View()->assign('productDefaultNameOptions', $productDefaultNameOptions);
+        $this->View()->assign('currentPhpCliPathOption', $currentPhpCliPathOption);
         $this->View()->assign('currentProductDefaultNameOption', $currentProductDefaultNameOption);
         $this->View()->assign('currentProductDefaultNameOptionFallback', $currentProductDefaultNameOptionFallback);
         $this->View()->assign('currentStockBufferOption', $currentStockBufferOption);
@@ -123,6 +125,10 @@ class Shopware_Controllers_Backend_PSC7HelperConnector extends Enlight_Controlle
 
     public function saveSettingsAction()
     {
+        $phpCliPathOption = $this->Request()->getParam(
+            'phpCliPathOption',
+            $this->configService->get('helper.php_cli_path_option', '')
+        );
         $productDefaultNameOption = (int)$this->Request()->getParam(
             'productDefaultNameOption',
             $this->configService->get('helper.product_default_name_option', 1)
@@ -136,6 +142,7 @@ class Shopware_Controllers_Backend_PSC7HelperConnector extends Enlight_Controlle
             $this->configService->get('helper.stock.stock_buffer_option', 0)
         );
 
+        $this->configService->set('helper.php_cli_path_option', $phpCliPathOption);
         $this->configService->set('helper.product_default_name_option', $productDefaultNameOption);
         $this->configService->set('helper.product_default_name_option_fallback', $productDefaultNameOptionFallback);
         $this->configService->set('helper.stock.stock_buffer_option', $stockBufferOption);

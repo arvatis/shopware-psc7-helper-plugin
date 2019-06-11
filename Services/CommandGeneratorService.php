@@ -2,6 +2,8 @@
 
 namespace PSC7Helper\Services;
 
+use SystemConnector\ConfigService\ConfigServiceInterface;
+
 class CommandGeneratorService implements CommandGeneratorServiceInterface
 {
     /**
@@ -9,9 +11,22 @@ class CommandGeneratorService implements CommandGeneratorServiceInterface
      */
     private $commandsCollectionService;
 
-    public function __construct(CommandsCollectionServiceInterface $commandsCollectionService)
+    /**
+     * @var ConfigServiceInterface
+     */
+    private $configService;
+
+    /**
+     * @param CommandsCollectionServiceInterface $commandsCollectionService
+     * @param ConfigServiceInterface $configService
+     */
+    public function __construct(
+        CommandsCollectionServiceInterface $commandsCollectionService,
+        ConfigServiceInterface $configService
+    )
     {
         $this->commandsCollectionService = $commandsCollectionService;
+        $this->configService = $configService;
     }
 
     /**
@@ -54,28 +69,6 @@ class CommandGeneratorService implements CommandGeneratorServiceInterface
 
     private function getPhpPath(): string
     {
-        exec($phpExecCommand = 'which php', $phpPathOutput);
-        if (!$phpCliPath = array_shift($phpPathOutput)) {
-            throw new \RuntimeException(
-                sprintf(
-                    'Unable to locate PHP CLI path tried to run command: %s please contact your hosting provider.',
-                    $phpExecCommand
-                )
-            );
-        }
-
-        exec($phpVersionExecCommand = sprintf('%s -r "echo PHP_VERSION_ID;"', $phpCliPath), $phpVersionOutput);
-
-        $phpVersion = (int)array_shift($phpVersionOutput);
-        if ($phpVersion < 70200) {
-            throw new \RuntimeException(
-                sprintf(
-                    'PHP CLI needs to run with at least php 7.2 path tried to run command: %s please contact your hosting provider.',
-                    $phpVersionExecCommand
-                )
-            );
-        }
-
-        return $phpCliPath;
+        return $this->configService->get('helper.php_cli_path_option', '');
     }
 }
