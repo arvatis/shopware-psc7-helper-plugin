@@ -64,6 +64,18 @@ class CommandGeneratorService implements CommandGeneratorServiceInterface
             );
         }
 
+        exec($phpVersionExecCommand = sprintf('%s -r "echo PHP_VERSION_ID;"', $phpCliPath), $phpVersionOutput);
+
+        $phpVersion = (int)array_shift($phpVersionOutput);
+        if ($phpVersion < 70200) {
+            throw new \RuntimeException(
+                sprintf(
+                    'PHP CLI needs to run with at least php 7.2 path tried to run command: %s please contact your hosting provider.',
+                    $phpVersionExecCommand
+                )
+            );
+        }
+
         return $phpCliPath;
     }
 }
