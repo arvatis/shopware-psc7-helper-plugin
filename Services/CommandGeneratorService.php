@@ -54,7 +54,7 @@ class CommandGeneratorService implements CommandGeneratorServiceInterface
 
     private function getPhpPath(): string
     {
-        exec($phpExecCommand = sprintf('which php%d.%d', PHP_MAJOR_VERSION, PHP_MINOR_VERSION), $phpPathOutput);
+        exec($phpExecCommand = 'which php', $phpPathOutput);
         if (!$phpCliPath = array_shift($phpPathOutput)) {
             throw new \RuntimeException(
                 sprintf(
